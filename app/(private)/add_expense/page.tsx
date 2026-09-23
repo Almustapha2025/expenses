@@ -88,7 +88,7 @@ export default async function AddExpenses() {
                 application built.
               </p>
               </div>
-              <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 rounded-lg mt-2">
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 rounded-lg mt-2">
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
                   <h3 className="text-green-500 text-2xl font-bold">Total Income </h3>
                   <h4 className="text-green-500 text-lg font-bold">&#8358; {totalIncome}</h4>
@@ -101,13 +101,13 @@ export default async function AddExpenses() {
                   <h3 className="text-green-500 text-2xl font-bold">Total Balance </h3>
                   <h4 className={`${totalBalance <= 5000 ? "text-red-500" : totalBalance <= 10000 ? "text-yellow-500" : "text-green-500"} text-lg font-bold`}>&#8358; {totalBalance}</h4>
                 </div>
-                <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
+                {/* <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
                   <h3 className="text-green-500 text-2xl font-bold">Total Savings </h3>
-                </div>
+                </div> */}
               </div>
               <div className="grid grid-flow-row-dense lg:grid-cols-2 md:grid-cols-1 gap-4 rounded-lg mt-8">
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-green-500 text-lg font-semibold">Add Expenses</h3>
+                  <h3 className="text-red-500 text-lg font-semibold">Add Expenses</h3>
                   <form action={createExpenses} >
                     <input type="hidden" name="userId" defaultValue={u.userId} />
                     <div className="space-y-2 py-2">
@@ -122,11 +122,11 @@ export default async function AddExpenses() {
                     </form>
                 </div>
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-green-500 text-lg font-semibold">View Recent Expenses</h3>
+                  <h3 className="text-red-700 text-lg font-semibold">View Recent Expenses</h3>
                   {expenses.map((e) => (
-                    <div key={e.id} className="flex justify-between border-b-3 border-gray-150 py-2 text-sm text-gray-700 capitalize">
+                    <div key={e.id} className="flex justify-between border-b-3 border-red-100 py-2 text-sm text-gray-700 capitalize">
                       <span><Link href={`/add_expense/${e.id}`}>{e.expense_name}</Link></span>
-                      <span className="flex"><Link href={`/add_expense/${e.id}`} className="text-xxs">
+                      <span className="flex rounded-lg bg-red-100 text-red-700 px-2"><Link href={`/add_expense/${e.id}`} className="text-xxs">
                         -{e.expense_amount.toFixed()} </Link>
                       </span>
                     </div>

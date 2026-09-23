@@ -88,7 +88,7 @@ export default async function incomeId({params}: {params: Promise<{id: string}>}
                 application built.
               </p>
               </div>
-              <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 rounded-lg mt-2">
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 rounded-lg mt-2">
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
                   <h3 className="text-green-500 text-2xl font-bold">Total Income </h3>
                   <h4 className="text-green-500 text-lg font-bold">&#8358; {totalIncome}</h4>
@@ -101,13 +101,13 @@ export default async function incomeId({params}: {params: Promise<{id: string}>}
                   <h3 className="text-green-500 text-2xl font-bold">Total Balance </h3>
                   <h4 className={`${totalBalance <= 5000 ? "text-red-500" : totalBalance <= 10000 ? "text-yellow-500" : "text-green-500"} text-lg font-bold`}>&#8358; {totalBalance}</h4>
                 </div>
-                <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
+                {/* <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
                   <h3 className="text-green-500 text-2xl font-bold">Total Savings </h3>
-                </div>
+                </div> */}
               </div>
               <div className="grid grid-flow-row-dense lg:grid-cols-2 md:grid-cols-1 gap-4 rounded-lg mt-8">
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-green-500 text-lg font-semibold">Edit {I?.income_name}</h3>
+                  <h3 className="text-green-700 text-lg font-semibold">Edit {I?.income_name}</h3>
                   <form action={UpdateIncome}>
                     <input type="hidden" name="Id" value={I?.id} />
                     <div className="space-y-2 py-2">

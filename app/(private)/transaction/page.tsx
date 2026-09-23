@@ -90,7 +90,7 @@ export default async function Transaction() {
                 application built.
               </p>
               </div>
-              <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 rounded-lg mt-2">
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 rounded-lg mt-2">
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
                   <h3 className="text-green-500 text-2xl font-bold">Total Income </h3>
                   <h4 className="text-green-500 text-lg font-bold">&#8358; {totalIncome}</h4>
@@ -103,9 +103,9 @@ export default async function Transaction() {
                   <h3 className="text-green-500 text-2xl font-bold">Total Balance </h3>
                   <h4 className={`${totalBalance <= 5000 ? "text-red-500" : totalBalance <= 10000 ? "text-yellow-500" : "text-green-500"} text-lg font-bold`}>&#8358; {totalBalance}</h4>
                 </div>
-                <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
+                {/* <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
                   <h3 className="text-green-500 text-2xl font-bold">Total Savings </h3>
-                </div>
+                </div> */}
               </div>
               <div className="grid grid-flow-row-dense lg:grid-cols-2 md:grid-cols-1 gap-4 rounded-lg mt-2">
                 <div className="py-2 rounded-md text-green-500 font-bold">
@@ -155,8 +155,8 @@ export default async function Transaction() {
                 </div>
                 <div className="py-2 px-1 rounded-md text-green-500 font-bold">
                     <h3 className="text-lg font-semibold font-serif text-green-500 flex gap-2">All Incomes <TrendingUp /></h3>
-                    <div className="w-full overflow-x-auto rounded-lg border bg-white shadow-sm">
-                  <table className="w-full min-w-120 text-left">
+                    <div className="w-full overflow-x-auto rounded-lg m-2 border bg-white shadow-sm">
+                  <table className="w-full min-w-120 text-left m-2">
                       <thead className="border-b bg-gray-50">
                         <tr>
                           <th className="px-2 py-4 text-sm font-semibold text-gray-600">
