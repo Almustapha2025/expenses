@@ -53,7 +53,7 @@ export default async function createExpenses(formData: FormData): Promise<void> 
 
     //  alert("Please check your Account Balance To Confirm")
       
-      redirect(`/add_expense`)
+      redirect(`/add_income`)
 
     }else{
        await prisma.expenses.create({

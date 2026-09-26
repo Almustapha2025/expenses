@@ -14,7 +14,7 @@ datasource db {
 
 model Income {
   id            Int        @id @default(autoincrement())
-  userId        String
+  userId        String     
   income_name   String
   income_amount Decimal    @db.Decimal()
   createdAt     DateTime   @default(now())
@@ -28,5 +28,4 @@ model Expenses {
   expense_amount Decimal  @db.Decimal()
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  
 }

@@ -1,25 +1,22 @@
-// "use server"
-import Image from "next/image";
 import Link from "next/link";
 import Sidebar from "@/components/dashboard/Sidebar";
-import { ArrowRight, Wallet } from "lucide-react";
 import { redirect } from "next/navigation";
 import { auth, currentUser, getAuth } from "@clerk/nextjs/server";
-import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 import prisma from "@/app/lib/prisma";
+// import DisplayCal from "@/components/DisplayCal";
 
 export default async function Home() {
 
-  const login = await currentUser()
-  const u = await auth();
+  const { userId } = await auth();
   const use = await currentUser()
-  if(!u.userId) redirect("/sign-in")
+  if (!userId) redirect("/sign-in")
     const incomes = await prisma.income.findMany({
       orderBy:{
         createdAt: "desc"
       },
       where:{
-        userId: u.userId
+        userId
       },
       take: 10
     })
@@ -29,18 +26,29 @@ export default async function Home() {
         createdAt: "desc"
       },
       where: {
-        userId: u.userId
+        userId
       },
       take: 10
     })
 
+    
+    const countIncomes = await prisma.income.count({
+      where:{
+        userId
+      }
+    })
+    const countExpenses = await prisma.expenses.count({
+      where:{
+        userId
+      }
+    })
     const incomes_table = await prisma.income.findMany({
       select:{
         income_amount: true,
         income_name: true
       },
       where:{
-        userId: u.userId
+        userId
       }
     })
 
@@ -50,7 +58,7 @@ export default async function Home() {
         expense_name: true
       },
       where:{
-        userId: u.userId
+        userId
       }
     })
 
@@ -65,17 +73,6 @@ export default async function Home() {
     )
     
     const totalBalance = totalIncome - totalExpense
-    const countIncomes = await prisma.income.count({
-      where:{
-        userId: u.userId
-      }
-    })
-    const countExpenses = await prisma.expenses.count({
-      where:{
-        userId: u.userId
-      }
-    })
-
 
   return (
     <>
@@ -94,18 +91,18 @@ export default async function Home() {
                 application built.
               </p>
               </div>
-              <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 rounded-lg mt-4">
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 rounded-lg mt-2">
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-green-500 text-2xl font-bold">Total Income </h3>
-                  <h4 className="text-green-500 text-lg font-bold">&#8358; {totalIncome}</h4>
+                  <h3 className="text-green-700 text-2xl font-bold">Total Income </h3>
+                  <h4 className="text-green-700 text-lg font-bold">&#8358; {totalIncome}</h4>
                 </div>
-                <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                   <h3 className="text-green-500 text-2xl font-bold">Total Expense </h3>
-                   <h4 className="text-green-500 text-lg font-bold">&#8358; {totalExpense}</h4>
+                <div className="p-4 bg-white rounded-md text-green-700 font-bold border">
+                   <h3 className="text-green-700 text-2xl font-bold">Total Expense </h3>
+                   <h4 className="text-green-700 text-lg font-bold">&#8358; {totalExpense}</h4>
                 </div>
-                <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-green-500 text-2xl font-bold">Total Balance </h3>
-                  <h4 className={`${totalBalance <= 5000 ? "text-red-500" : totalBalance <= 10000 ? "text-yellow-500" : "text-green-500"} text-lg font-bold`}>&#8358; {totalBalance}</h4>
+                <div className="p-4 bg-white rounded-md text-green-700 font-bold border">
+                  <h3 className="text-green-700 text-2xl font-bold">Total Balance </h3>
+                  <h4 className={`${totalBalance <= 5000 ? "text-red-700" : totalBalance <= 10000 ? "text-yellow-700" : "text-green-700"} text-lg font-bold`}>&#8358; {totalBalance}</h4>
                 </div>
                 {/* <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
                   <h3 className="text-green-500 text-2xl font-bold">Total Savings </h3>
@@ -113,8 +110,8 @@ export default async function Home() {
               </div>
               <div className="grid grid-flow-row-dense lg:grid-cols-2 md:grid-cols-1 gap-4 rounded-lg mt-4">
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-green-500 text-lg font-semibold">Recent Incomes Record</h3>
-                  {(await incomes).map((i) => (
+                  <h3 className="text-green-700 text-lg font-semibold">Recent Incomes Record</h3>
+                  {incomes.map((i) => (
                     <div key={i.id} className="flex justify-between border-b-3 border-green-200 py-2 text-sm text-gray-700 capitalize">
                       <span><Link href={`/add_income/${i.id}`}>{i.income_name}</Link> </span>
                       <span className="px-4 rounded-lg bg-green-100 text-green-700"><Link href={`/add_income/${i.id}`}>+{i.income_amount.toFixed()}</Link> </span>
@@ -122,8 +119,8 @@ export default async function Home() {
                   ))}
                 </div>
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-red-500 text-lg font-semibold">Recent Expenses Record</h3>
-                  {(await expenses).map((e) => (
+                  <h3 className="text-red-700 text-lg font-semibold">Recent Expenses Record</h3>
+                  {expenses.map((e) => (
                     <div key={e.id} className="flex justify-between border-b-3 border-red-200 py-2 text-sm text-gray-700 capitalize">
                       <span><Link href={`/add_expense/${e.id}`}>{e.expense_name}</Link> </span>
                       <span className="px-4 rounded-lg bg-red-100 text-red-700"><Link href={`/add_expense/${e.id}`}>-{e.expense_amount.toFixed()}</Link> </span>
@@ -132,13 +129,13 @@ export default async function Home() {
                 </div>
               </div>
               <div className="grid grid-flow-row-dense lg:grid-cols-2 md:grid-cols-1 gap-4 rounded-lg mt-4">
-                <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-greed-500 mb-4 text-xl font-semibold">Numbers Of Incomes Transaction</h3>
+                <div className="p-4 bg-white rounded-md text-green-700 font-bold border">
+                  <h3 className="text-greed-700 mb-4 text-xl font-semibold">Numbers Of Incomes Transaction</h3>
                   <span className="w-32 h-64 px-4 py-2 text-green-900 m-4 border border-green-700 bg-green-100 shadow-red-50 rounded-full text-2xl">{countIncomes}</span>
                 </div>
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-red-500 mb-4 text-xl font-semibold">Numbers Of Expenses Transaction</h3>
-                  <span className="w-32 h-64 px-4 py-2 text-red-900 m-4 border border-red-700 bg-red-100 shadow-red-50 rounded-full text-2xl">{countExpenses}</span>
+                  <h3 className="text-red-700 mb-4 text-xl font-semibold">Numbers Of Expenses Transaction</h3>
+                  <span className="w-32 h-64 px-4 py-2 text-red-700 m-4 border border-red-700 bg-red-100 shadow-red-50 rounded-full text-2xl">{countExpenses}</span>
                 </div>
               </div>
           </main>
