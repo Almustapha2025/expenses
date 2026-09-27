@@ -97,7 +97,7 @@ export default async function incomeId({params}: {params: Promise<{id: string}>}
                     <input type="hidden" name="Id" value={I?.id} />
                     <div className="space-y-2 py-2">
                         <label htmlFor="income_name" className="text-gray-500 text-xs">Income Name</label><br/>
-                        <input type="text" name="income_name" defaultValue={I?.income_name} id="income_name" className="rounded-md text-gray-700 w-full p-2 border outline-none text-sm" required />
+                        <input type="text" name="income_name" defaultValue={I?.income_name} id="income_name" className="rounded-md text-gray-700 w-full p-2 border outline-none capitalize text-sm" required />
                     </div>
                     <div className="space-y-2 py-2">
                         <label htmlFor="income_amount" className="text-gray-500 text-xs">Amount</label><br/>

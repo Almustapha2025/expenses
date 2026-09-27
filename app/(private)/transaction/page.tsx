@@ -117,7 +117,7 @@ export default async function Transaction() {
                           className="transition hover:bg-gray-50"
                         >
                           <td className="px-2 py-1">
-                            <p className="text-gray-900 text-xs">
+                            <p className="text-gray-900 capitalize text-xs">
                               {I.income_name}
                             </p>
                           </td>
@@ -168,7 +168,7 @@ export default async function Transaction() {
                           className="transition hover:bg-gray-50"
                         >
                           <td className="px-2 py-1">
-                            <p className="text-gray-900 text-xs">
+                            <p className="text-gray-900 capitalize text-xs">
                               {E.expense_name}
                             </p>
                           </td>
