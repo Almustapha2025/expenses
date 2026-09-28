@@ -1,8 +1,6 @@
 
 import createExpenses from "@/app/lib/expenses_action";
-import Add_expense from '@/app/lib/action';
 import Sidebar from '@/components/dashboard/Sidebar';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { UserButton } from '@clerk/nextjs';
@@ -19,6 +17,7 @@ export default async function AddExpenses() {
     const use = await currentUser()
     if(!u.userId) redirect("/sign-in")
 
+     // eslint-disable-next-line @typescript-eslint/no-unused-vars
      const incomes = await prisma.income.findMany({
       orderBy:{
         createdAt: "desc"
@@ -69,6 +68,7 @@ export default async function AddExpenses() {
       0
     )
     
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const totalBalance = totalIncome - totalExpense
 
     

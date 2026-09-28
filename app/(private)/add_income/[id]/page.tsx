@@ -66,6 +66,7 @@ export default async function incomeId({params}: {params: Promise<{id: string}>}
       0
     )
     
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const totalBalance = totalIncome - totalExpense
 
     const I = await prisma.income.findUnique({
@@ -109,10 +110,10 @@ export default async function incomeId({params}: {params: Promise<{id: string}>}
                     </form>
                 </div>
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-2xl font-semibold text-green-700 mb-4">Remove {I?.income_name}</h3>
+                  <h3 className="text-2xl font-semibold capitalize text-green-700 mb-4">Remove {I?.income_name}</h3>
                   <div className="flex flex-col justify-between px-2 py-1 bg-green-50 border rounded-lg">
                     <div className="text-green-700">
-                      <h5 className="py-2 px-1 font-serif text-lg">{I?.income_name}</h5>
+                      <h5 className="py-2 px-1 font-serif capitalize text-lg">{I?.income_name}</h5>
                       <h5 className="py-2 px-1 font-serif text-lg">&#8358; {I?.income_amount.toFixed()}</h5>
                       <h5 className="py-2 px-1 font-serif text-lg"> {I?.createdAt.toDateString()}</h5>
                     </div>

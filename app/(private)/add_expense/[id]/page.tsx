@@ -3,7 +3,6 @@ import prisma from '@/app/lib/prisma';
 import UpdateExpense from '@/app/lib/UpdateExpense';
 import ExpenseUpdate from '@/components/dashboard/ExpenseUpdate';
 import Sidebar from '@/components/dashboard/Sidebar';
-import { Input } from '@/components/ui/input';
 import { UserButton } from '@clerk/nextjs';
 import { auth, currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
@@ -48,6 +47,7 @@ export default async function ExpensesId({params}: {params: Promise<{id: string}
       0
     )
     
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const totalBalance = totalIncome - totalExpense
 
     const expense = await prisma.expenses.findUnique({
@@ -92,10 +92,10 @@ export default async function ExpensesId({params}: {params: Promise<{id: string}
                     </form>
                 </div>
                 <div className="p-4 bg-white rounded-md text-green-500 font-bold border">
-                  <h3 className="text-2xl font-semibold text-red-700 mb-4">Remove {expense?.expense_name}</h3>
+                  <h3 className="text-2xl font-semibold capitalize text-red-700 mb-4">Remove {expense?.expense_name}</h3>
                   <div className="flex flex-col justify-between px-2 py-1 bg-red-50 border rounded-lg">
                     <div className="text-gray-700">
-                      <h5 className="py-2 px-1 text-red-700 font-serif text-lg">{expense?.expense_name}</h5>
+                      <h5 className="py-2 px-1 text-red-700 capitalize font-serif text-lg">{expense?.expense_name}</h5>
                       <h5 className="py-2 px-1 text-red-700 font-serif text-lg">&#8358; {expense?.expense_amount.toFixed()}</h5>
                       <h5 className="py-2 px-1 text-red-700 font-serif text-lg"> {expense?.createdAt.toDateString()}</h5>
                     </div>
